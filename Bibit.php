@@ -45,8 +45,8 @@ define( "BIBIT_ERROR_INVALID_REQUEST", 5);
 
 /** 
 * @const BIBIT_ERROR_INVALID_CONTENT order in a batch not valid
-*//
-define( "BIBIT_ERROR_INVALID_CONTENT", 6):
+*/
+define( "BIBIT_ERROR_INVALID_CONTENT", 6);
 
 /**
 * @const BIBIT_ERROR_PAYMENT_DETAILS creditcard number not ok, expiry date in the past, etc
@@ -133,6 +133,7 @@ class Bibit extends pear
 	* @param string $Value - Password for Merchant (Same as backoffice login)
 	* @return void
 	* @access public
+	*/
 	function setAuthPassword($Value)
 	{
 		$this->_authPass = $Value;
@@ -208,6 +209,7 @@ class Bibit extends pear
 	* @param string $Value - HTML invoice. Only tags that mey appear within the BODY tag. Max 10 KB
 	* @return string
 	* @access public
+	*/
 	function setInvoice($Value)
 	{
 		$this->_invoice = substr($Value, 0, 10000);	//maximum 1000 chars
