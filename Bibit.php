@@ -249,6 +249,24 @@ class Bibit extends pear
 		return $this->_paymentMask;
 	}
 	
+	function buildXML()
+	{
+		$xml = "
+		<?xml version=\"1.0\"?>
+		<!DOCTYPE paymentService PUBLIC \"-//Bibit/DTD Bibit paymentService V1//EN\" \"http://dtd.bibit.com/paymentService_v1.dtd\">
+		<paymentService version=\"1.2\" merchantCode
+		";
+	}
+	
+	function processReturnedBibitData($bibitData)
+	{
+	}
+	
+	function SendBibitData($bibitXML)
+	{
+	}
+	
+	
 }
 
 ?>
