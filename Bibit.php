@@ -63,18 +63,94 @@ define( "BIBIT_ERROR_PAYMENT_DETAILS", 7);
 */
 class Bibit extends pear
 {
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_orderNumber;
 
-	
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_merchantCode;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_invoice;
+
+	/**
+	* @var integer
+	* @access private
+	*/
+	var $_amount;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_currency;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_description;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_paymentMask;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_authUser;
+
+	/**
+	* @var string
+	* @access private
+	*/
+	var $_authPass;
+
+	/**
+	* Constructor for bibit payment class
+	* @access public;
+	*/
 	function Bibit()
 	{
-		return 1;
+		$this->_amount = 0;
+		$this->_currency = "EUR";		//Default bibit currency
+		$this->_paymentMask = "ALL";	//Show all payment methods to customer
 	}
 	
+	/**
+	* Property AuthPassword
+	* @param string $Value - Password for Merchant (Same as backoffice login)
+	* @return void
+	* @access public
+	function setAuthPassword($Value)
+	{
+		$this->_authPass = $Value;
+	}
+	
+	/**
+	* Property OrderNumber
+	* @param string $Value - Order number
+	* @return string
+	* @access public;
+	*/
 	function setOrderNumber($Value)
 	{
+		$this->_orderNumber = $Value;
 	}
 	function getOrderNumber()
 	{
+		return $this->_orderNumber;
 	}
 	
 	/**
@@ -85,9 +161,12 @@ class Bibit extends pear
 	*/
 	function setMerchantCode($Value)
 	{
+		$this->_merchantCode = $Value;
+		$this->_authUser = $Value;		//username is same as merchantcode..
 	}
 	function getMerchantCode()
 	{
+		return $this->_merchantCode;
 	}
 	
 	/** 
@@ -98,9 +177,11 @@ class Bibit extends pear
 	*/
 	function setOrderAmount($Value)
 	{
+		$this->_amount = $Value;
 	}
 	function getOrderAmount()
 	{
+		return $this->_amount;
 	}
 	
 	/**
@@ -111,9 +192,15 @@ class Bibit extends pear
 	*/
 	function setCurrency($Value)
 	{
+		if (strlen($Value) == 3)
+		{
+			//only set currency if it's a 3 chars currency code
+			$this->_currency = strtoupper($Value);
+		}
 	}
 	function getCurrency()
 	{
+		return $this->_currency;
 	}
 	
 	/**
@@ -123,9 +210,11 @@ class Bibit extends pear
 	* @access public
 	function setInvoice($Value)
 	{
+		$this->_invoice = substr($Value, 0, 10000);	//maximum 1000 chars
 	}
 	function getInvoice()
 	{
+		return $this->_invoice;
 	}
 	
 	/**
@@ -136,9 +225,11 @@ class Bibit extends pear
 	*/
 	function setDescription($Value)
 	{
+		$this->_description = substr($Value, 0, 50);	//max 50 chars
 	}
 	function getDescription()
 	{
+		return $this->_description;
 	}
 	
 	/**
@@ -149,9 +240,11 @@ class Bibit extends pear
 	*/
 	function setPaymentMask($Value)
 	{
+		$this->_paymentMask = $Value;	//If incorrect, all allowed payment methods are showed
 	}
 	function getPaymentMask()
 	{
+		return $this->_paymentMask;
 	}
 	
 }
